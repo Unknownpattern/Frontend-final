@@ -1,0 +1,48 @@
+<div class="container">
+  <h1>Login</h1>
+
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" formControlName="email" />
+      <mat-icon matSuffix>mail</mat-icon>
+      <!-- <ng-container *ngIf="!email?.valid && email?.touched"> -->
+      <mat-hint [hidden]="!(!email?.valid && email?.touched && email?.errors)">
+        {{ emailError() }}
+      </mat-hint>
+
+      <!-- </ng-container> -->
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        [type]="hide ? 'password' : 'text'"
+        formControlName="password"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        type="button"
+        (click)="hide = !hide"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide"
+      >
+        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+      </button>
+      <mat-hint
+        [hidden]="
+          !(!password?.valid && password?.touched && password?.errors?.required)
+        "
+        >Password is required</mat-hint
+      >
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="loginForm.invalid || loading"
+    >
+      Login
+    </button>
+  </form>
+</div>

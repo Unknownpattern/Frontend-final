@@ -1,0 +1,28 @@
+div {
+  background-color: #3d2a92;
+  display: flex;
+}
+ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  width: 100%;
+  padding: 0 40px;
+  height: 60px;
+}
+li {
+  display: flex;
+  align-items: center;
+}
+a.home-link {
+  color: ivory;
+  text-decoration: none;
+}
+.center {
+  color: ivory;
+  margin: 20px;
+}
+.login {
+  margin-right: 20px;
+}
