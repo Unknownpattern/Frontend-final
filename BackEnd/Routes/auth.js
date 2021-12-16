@@ -27,7 +27,11 @@ router.get("/register", validInfo, async (req, res) => {
       }
 
       const token = jwtGenerator(newUser.rows[0].user_id);
-      res.json({ token });
+      res.json({ token,
+         name: req.user.user_name, 
+         user_id: req.user.user_id,
+         email: req.user.user_email,
+         is_admin: req.user.isAdmin });
    } catch (err) {
       console.error(err.message)
       res.status(500).json("Server Error");
@@ -37,7 +41,11 @@ router.get("/register", validInfo, async (req, res) => {
 router.post("/login", validInfo, passport.authenticate('local', { session: false }), (req, res) => {
    if (req.user) {
       const token = jwtGenerator(req.user.user_id);
-      res.json({ token });
+      res.json({ token, 
+         name: req.user.user_name, 
+         user_id: req.user.user_id,
+         email: req.user.user_email,
+         is_admin: req.user.isAdmin });
    } else {
       res.status(500).send('server error');
    }

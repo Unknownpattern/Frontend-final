@@ -5,10 +5,10 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class AuthService {
-  baseUrl = 'localhost:5000';
+  baseUrl = 'http://localhost:5000';
   constructor(private httpClient: HttpClient) {}
   login(email: string, password: string) {
     const url = this.baseUrl + '/api/login';
-    return this.httpClient.post(url, { email, password });
+    return this.httpClient.post(url, { "email": email, "password" : password });
   }
 }
