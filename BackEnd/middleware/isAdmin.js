@@ -1,9 +1,9 @@
 module.exports = (req, res, next) => {
-   if (req.user.isAdmin) {
+   if (req.user.is_admin) {
       next();
    }
    else {
-      res.status(401).send("unauthorized")
+      res.status(401).send("Unauthorized")
    }
 
 }

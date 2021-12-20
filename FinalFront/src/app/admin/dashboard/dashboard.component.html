@@ -1,0 +1,18 @@
+<div class="container">
+  <mat-tab-group>
+    <mat-tab label="Products">
+      <ng-template matTabContent>
+        <app-display-lists></app-display-lists>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="Users">
+      <ng-template matTabContent>
+        <app-display-users></app-display-users>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+
+  <div class="routerDisplay">
+    <router-outlet></router-outlet>
+  </div>
+</div>

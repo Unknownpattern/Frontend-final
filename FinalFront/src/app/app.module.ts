@@ -1,3 +1,6 @@
+import { AdminModule } from './admin/admin.module';
+import { appReducer } from './store/app.state';
+import { SHARED_STATE_NAME } from './shared/state/shared.selector';
 import { SharedModule } from './shared/shared.module';
 import { NgModule } from '@angular/core';
 
@@ -10,7 +13,9 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthEffects } from './auth/state/auth.effects';
+import { AuthTokenInterceptor } from './http/interceptor';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent],
@@ -20,18 +25,20 @@ import { HttpClientModule } from '@angular/common/http';
     SharedModule,
     AppRoutingModule,
     HttpClientModule,
-    EffectsModule.forRoot([]),
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot(appReducer),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
     }),
-    EffectsModule.forRoot([]),
-    StoreDevtoolsModule.instrument({
-      logOnly: environment.production,
-    }),
+    EffectsModule.forRoot([AuthEffects]),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthTokenInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

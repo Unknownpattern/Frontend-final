@@ -8,3 +8,12 @@ CREATE TABLE users(
    user_password TEXT NOT NULL,
    is_admin BOOLEAN DEFAULT FALSE
 );
+CREATE TABLE items(
+   item_id SERIAL PRIMARY KEY,
+   item_name TEXT NOT NULL,
+   item_price NUMERIC NOT NULL,
+   item_quantity INTEGER NOT NULL,
+   item_original_quantity INTEGER NOT NULL,
+   item_description TEXT,
+   item_image TEXT
+);

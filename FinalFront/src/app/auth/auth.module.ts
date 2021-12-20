@@ -7,6 +7,7 @@ import { StoreModule } from '@ngrx/store';
 import { AUTH_STATE_NAME } from './state/auth.selector';
 import { AuthReducer } from './state/auth.reducer';
 import { AuthEffects } from './state/auth.effects';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   {
@@ -14,17 +15,17 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'login' },
       { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
     ],
   },
 ];
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, RegisterComponent],
   imports: [
     RouterModule.forChild(routes),
-    EffectsModule.forFeature([AuthEffects]),
     SharedModule,
-    StoreModule.forFeature(AUTH_STATE_NAME, AuthReducer),
+    // StoreModule.forFeature(AUTH_STATE_NAME, AuthReducer),
   ],
 })
 export class AuthModule {}

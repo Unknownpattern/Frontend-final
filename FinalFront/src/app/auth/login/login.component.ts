@@ -1,8 +1,11 @@
+import { setLoadingSpinner } from './../../shared/state/shared.actions';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
 import { loginStart } from '../state/auth.actions';
+import { getUser } from '../state/auth.selector';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,13 +15,23 @@ import { loginStart } from '../state/auth.actions';
 export class LoginComponent implements OnInit {
   hide = true;
   loginForm!: FormGroup;
-  loading = false;
-  constructor(private fb: FormBuilder, private store: Store<AppState>) {}
+
+  constructor(
+    private fb: FormBuilder,
+    private store: Store<AppState>,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
+    });
+
+    this.store.select(getUser).subscribe((user) => {
+      if (user != null) {
+        this.router.navigateByUrl('');
+      }
     });
   }
   get email() {
@@ -41,14 +54,13 @@ export class LoginComponent implements OnInit {
       this.email?.touched &&
       this.email?.errors?.email
     ) {
-      return 'Email field needs to contain email format';
+      return 'Please enter a proper email';
     }
     return '';
   }
 
   onSubmit() {
-    this.loading = true;
     this.store.dispatch(loginStart(this.loginForm.value));
-    console.log(this.loginForm.value);
+    this.store.dispatch(setLoadingSpinner({ status: true }));
   }
 }

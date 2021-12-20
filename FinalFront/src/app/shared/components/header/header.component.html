@@ -1,14 +1,43 @@
-<div>
-  <ul>
-    <li>
-      <a [routerLink]="['']" class="home-link">Home Icon</a>
-    </li>
+<p>
+  <mat-toolbar color="primary">
+    <a
+      [routerLink]="['']"
+      mat-button
+      aria-label="Example icon-button with menu icon"
+    >
+      <mat-icon>home</mat-icon>
+      <span> My App</span>
+    </a>
+    <span class="example-spacer"></span>
 
-    <li class="login">
-      <a [routerLink]="['/auth', 'login']">
-        <button mat-raised-button color="secondary">Login</button>
-      </a>
-    </li>
-  </ul>
-  <!-- <h3 [routerLink]="['/auth', 'login']" class="center">Web Store</h3> -->
-</div>
+    <a [routerLink]="['/auth', 'login']" *ngIf="!hasUser" class="buttons">
+      <button mat-raised-button color="secondary">Login</button>
+    </a>
+    <span class="welcome-message" *ngIf="hasUser"
+      >Welcome back, {{ name }}
+    </span>
+    <a
+      mat-raised-button
+      color="secondary"
+      (click)="onLogOut()"
+      *ngIf="hasUser"
+      class="buttons"
+    >
+      Logout
+    </a>
+    <a
+      [routerLink]="['/admin']"
+      mat-raised-button
+      color="secondary"
+      *ngIf="isAdmin"
+      class="buttons"
+    >
+      Admin dashboard</a
+    >
+    <button mat-icon-button>
+      <mat-icon>shopping_cart</mat-icon>
+    </button>
+  </mat-toolbar>
+</p>
+
+<app-loading-spinner *ngIf="showLoading$ | async"></app-loading-spinner>

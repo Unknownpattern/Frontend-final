@@ -37,12 +37,12 @@
         >Password is required</mat-hint
       >
     </mat-form-field>
-    <button
-      mat-raised-button
-      color="primary"
-      [disabled]="loginForm.invalid || loading"
-    >
+    <button mat-raised-button color="primary" [disabled]="loginForm.invalid">
       Login
     </button>
   </form>
+  <p>
+    Don't have an account? Click
+    <a [routerLink]="['/auth', 'register']">here</a> to sign up!
+  </p>
 </div>

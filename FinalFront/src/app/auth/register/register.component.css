@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 600px;
+  border: 2px solid rgb(221, 220, 220);
+  background-color: rgba(221, 220, 220, 0.5);
+  width: 450px;
+  margin: 20px auto;
+  border-radius: 4px;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 10px;
+  height: 70%;
+}
+mat-form-field {
+  width: 300px;
+}

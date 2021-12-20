@@ -1,0 +1,18 @@
+mat-card {
+  width: 80%;
+  padding: 25px;
+  background-color: rgba(254, 254, 254, 0.2);
+}
+.container {
+  margin: 5px;
+  display: flex;
+  justify-content: center;
+}
+.label {
+  font-size: large;
+  font-weight: 660;
+  color: rgb(48, 207, 48);
+}
+p {
+  font-size: large;
+}

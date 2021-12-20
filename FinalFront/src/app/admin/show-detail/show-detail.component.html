@@ -1,0 +1,38 @@
+<div class="container">
+  <mat-card>
+    <mat-card-title-group>
+      <mat-card-title>{{ currentItem.item_name }}</mat-card-title>
+      <img
+        mat-card-xl-image
+        [src]="
+          currentItem.item_image
+            ? currentItem.item_image
+            : 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg'
+        "
+      />
+      <!-- Credit: Ranjithsiji, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons -->
+      <mat-card-subtitle>{{ currentItem.item_description }}</mat-card-subtitle>
+    </mat-card-title-group>
+    <mat-card-content>
+      <p>
+        <span class="label"> Current Inventory: </span>
+        {{ currentItem.item_quantity }} /
+        {{ currentItem.item_original_quantity }}
+        <br />
+        <span class="label"> Price: </span>
+        ${{ currentItem.item_price | number: "1.2-2" }}
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <a
+        mat-raised-button
+        color="accent"
+        [routerLink]="['../..', 'EditItem', currentItem.item_id]"
+        >Edit</a
+      >
+      <button mat-raised-button color="warn" (click)="onDelete()">
+        Delete
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

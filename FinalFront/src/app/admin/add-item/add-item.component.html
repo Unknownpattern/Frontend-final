@@ -1,0 +1,43 @@
+<mat-card>
+  <form [formGroup]="itemForm" (ngSubmit)="onSave()">
+    <mat-form-field appearance="fill">
+      <mat-label>Item Name</mat-label>
+      <input matInput type="text" formControlName="item_name" />
+      <mat-hint
+        [hidden]="!(!itemName?.valid && itemName?.touched && itemName?.errors)"
+      >
+        Item needs a name
+      </mat-hint>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Item Description</mat-label>
+      <input matInput type="text" formControlName="item_description" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Item Price</mat-label>
+      <input matInput type="text" formControlName="item_price" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Item Original Quantity</mat-label>
+      <input matInput type="text" formControlName="item_original_quantity" />
+    </mat-form-field>
+    <mat-card-actions>
+      <button
+        mat-raised-button
+        type="button"
+        (click)="onCancel()"
+        color="accent"
+      >
+        Cancel
+      </button>
+      <button
+        mat-raised-button
+        type="submit"
+        color="primary"
+        [disabled]="!itemForm.valid"
+      >
+        Save
+      </button>
+    </mat-card-actions>
+  </form>
+</mat-card>

@@ -1,0 +1,9 @@
+mat-tab-group {
+  width: 50%;
+}
+.container {
+  display: flex;
+}
+.routerDisplay {
+  width: 50vw;
+}
