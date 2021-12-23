@@ -14,7 +14,7 @@ passport.use(
    },
       async function (jwtPayload, done) {
          try {
-            const userQuery = await pool.query("SELECT user_email, user_name, user_id, is_admin FROM users WHERE user_id = $1", [jwtPayload.user.id]);
+            const userQuery = await pool.query("SELECT user_email, user_name, user_id, is_admin FROM users WHERE user_id = $1", [jwtPayload.user.user_id]);
             if (userQuery.rowCount === 0) {
                throw error("User not found");
             }

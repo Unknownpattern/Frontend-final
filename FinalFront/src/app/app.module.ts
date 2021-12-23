@@ -1,6 +1,6 @@
-import { AdminModule } from './admin/admin.module';
+import { CartEffects } from './cart/state/cart.effects';
+import { HomeEffects } from './home/state/home.effect';
 import { appReducer } from './store/app.state';
-import { SHARED_STATE_NAME } from './shared/state/shared.selector';
 import { SharedModule } from './shared/shared.module';
 import { NgModule } from '@angular/core';
 
@@ -16,11 +16,24 @@ import { EffectsModule } from '@ngrx/effects';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthEffects } from './auth/state/auth.effects';
 import { AuthTokenInterceptor } from './http/interceptor';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { HomeItemComponent } from './home/home-item/home-item.component';
+import { FormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { CartPageComponent } from './cart/cart-page/cart-page.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    HomeItemComponent,
+    CartPageComponent,
+  ],
   imports: [
     BrowserModule,
+    FormsModule,
+    MatProgressSpinnerModule,
     BrowserAnimationsModule,
     SharedModule,
     AppRoutingModule,
@@ -30,7 +43,9 @@ import { AuthTokenInterceptor } from './http/interceptor';
       maxAge: 25,
       logOnly: environment.production,
     }),
-    EffectsModule.forRoot([AuthEffects]),
+    EffectsModule.forRoot([AuthEffects, HomeEffects, CartEffects]),
+    InfiniteScrollModule,
+    MatSelectModule,
   ],
   providers: [
     {

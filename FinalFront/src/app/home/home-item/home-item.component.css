@@ -1,14 +1,10 @@
 mat-card {
   width: 25vw;
-  height: 24vh;
+  height: 300px;
   margin: 30px;
   padding: 25px;
 }
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-}
+
 .label {
   font-size: large;
   font-weight: 660;
@@ -16,6 +12,7 @@ mat-card {
 }
 p {
   font-size: large;
+  margin-right: auto;
 }
 mat-card-actions {
   display: flex;
@@ -23,7 +20,10 @@ mat-card-actions {
   flex-direction: row-reverse;
   margin: 5px;
 }
-.spinner {
+mat-form-field {
+  margin: 0 15px;
+}
+mat-card-content {
   display: flex;
-  justify-content: center;
+  flex-direction: row-reverse;
 }

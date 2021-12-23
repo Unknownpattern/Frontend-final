@@ -1,0 +1,17 @@
+<mat-card *ngFor="let item of value | async">
+  <mat-card-title>
+    {{ item.item_name }}
+  </mat-card-title>
+  <mat-card-subtitle>
+    {{ item.item_description }}
+  </mat-card-subtitle>
+  <mat-card-content>
+    Price: {{ item.cart_quantity }} x {{ item.item_price }}
+    <span class="total"
+      >Total: {{ item.cart_quantity * item.item_price }}
+      <button mat-icon-button (click)="onDelete(item)">
+        <mat-icon>delete</mat-icon>
+      </button></span
+    >
+  </mat-card-content>
+</mat-card>

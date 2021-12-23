@@ -1,1 +1,20 @@
-<p>home works!</p>
+<div
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="150"
+  [infiniteScrollDisabled]="false"
+  (scrolled)="onScroll()"
+>
+  <div class="container">
+    <ng-container *ngFor="let product of itemList$ | async">
+      <app-home-item
+        [product]="product"
+        [isLoggedIn]="isLoggedIn"
+        (onAdd)="addToCart($event)"
+      ></app-home-item>
+    </ng-container>
+  </div>
+</div>
+<div class="spinner" *ngIf="!gotEverything">
+  <mat-spinner></mat-spinner>
+</div>

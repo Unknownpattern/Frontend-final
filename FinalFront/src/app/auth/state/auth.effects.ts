@@ -19,6 +19,8 @@ import { catchError, exhaustMap, map, mergeMap, of } from 'rxjs';
 import { AppState } from 'src/app/store/app.state';
 import { Store } from '@ngrx/store';
 import { HttpResponseBase } from '@angular/common/http';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { User } from 'src/app/models/user.model';
 @Injectable()
 export class AuthEffects {
   constructor(
@@ -99,22 +101,23 @@ export class AuthEffects {
   autoLogin$ = createEffect(() => {
     return this.action$.pipe(
       ofType(autoLogin),
-      mergeMap(() => {
+      map(() => {
+        const helper = new JwtHelperService();
         const userToken = this.authService.getUserFromLocalStorage();
-        if (userToken) {
-          return this.authService.autoLogin(userToken).pipe(
-            map((value: AuthData) => {
-              const user = this.authService.formatUser(value);
-              return loginSuccess({ user });
-            }),
-            catchError((errRes: HttpResponseBase) => {
-              this.authService.clearUser();
-              return of(loginFail());
-            })
+        if (userToken && !helper.isTokenExpired(userToken)) {
+          const { user }: any = helper.decodeToken(userToken);
+          const newUser = new User(
+            user.user_email,
+            user.tokenResult,
+            userToken,
+            user.user_name,
+            user.is_admin
           );
+
+          return loginSuccess({ user: newUser });
         }
         this.authService.clearUser();
-        return of(loginFail());
+        return loginFail();
       })
     );
   });

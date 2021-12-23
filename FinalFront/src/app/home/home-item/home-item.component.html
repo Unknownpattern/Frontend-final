@@ -1,0 +1,42 @@
+<mat-card>
+  <mat-card-title-group>
+    <mat-card-title>
+      {{ product.item_name }}
+    </mat-card-title>
+    <img
+      mat-card-xl-image
+      [src]="
+        product.item_image
+          ? product.item_image
+          : 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg'
+      "
+    />
+    <mat-card-subtitle>{{ product.item_description }}</mat-card-subtitle>
+  </mat-card-title-group>
+  <mat-card-content>
+    <p [hidden]="quantityAvailable !== 0"><b>Sold out</b></p>
+    <button
+      mat-fab
+      (click)="onClick()"
+      *ngIf="quantityAvailable !== 0 && isLoggedIn"
+      [disabled]="!(quantityValue > 0)"
+    >
+      <mat-icon>add_shopping_cart</mat-icon>
+    </button>
+    <mat-form-field appearance="fill" *ngIf="quantityAvailable !== 0">
+      <mat-label>Quantity</mat-label>
+      <mat-select matNativeControl required [(value)]="quantityValue">
+        <mat-option
+          *ngFor="let value of [].constructor(quantityAvailable); let i = index"
+          [value]="i + 1"
+        >
+          {{ i + 1 }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <p>
+      <span class="label"> $ </span>
+      {{ product.item_price | number: "1.2-2" }}
+    </p>
+  </mat-card-content>
+</mat-card>

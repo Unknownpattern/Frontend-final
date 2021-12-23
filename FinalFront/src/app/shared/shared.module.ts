@@ -11,6 +11,7 @@ import { LoadingSpinnerComponent } from './components/loading-spinner/loading-sp
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
+import { MatBadgeModule } from '@angular/material/badge';
 
 @NgModule({
   declarations: [HeaderComponent, LoadingSpinnerComponent],
@@ -23,6 +24,7 @@ import { MatCardModule } from '@angular/material/card';
     MatSnackBarModule,
     MatToolbarModule,
     MatIconModule,
+    MatBadgeModule,
   ],
   exports: [
     CommonModule,

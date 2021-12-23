@@ -26,7 +26,7 @@ router.post("/register", validInfo, async (req, res) => {
          newUser = await Pool.query(`INSERT INTO users(user_name, user_email, user_password) VALUES ($1, $2, $3) RETURNING *`, [name, email, encryptedPassword]);
       }
 
-      const token = jwtGenerator(newUser.rows[0].user_id);
+      const token = jwtGenerator(newUser.rows[0].user_id, newUser.rows[0].user_name, newUser.rows[0].user_email, newUser.rows[0].is_admin);
       res.json({
          token,
          name: newUser.rows[0].user_name,
@@ -42,7 +42,7 @@ router.post("/register", validInfo, async (req, res) => {
 
 router.post("/login", validInfo, passport.authenticate('local', { session: false }), (req, res) => {
    if (req.user) {
-      const token = jwtGenerator(req.user.user_id);
+      const token = jwtGenerator(req.user.user_id, req.user.user_name, req.user.user_email, req.user.is_admin);
       res.json({
          token,
          name: req.user.user_name,
@@ -57,7 +57,7 @@ router.post("/login", validInfo, passport.authenticate('local', { session: false
 
 router.get("/getUser", passport.authenticate('jwt', { session: false }), (req, res) => {
    if (req.user) {
-      const token = jwtGenerator(req.user.user_id);
+      const token = jwtGenerator(req.user.user_id, req.user.user_name, req.user.user_email, req.user.is_admin);;
       res.json({
          token,
          name: req.user.user_name,
